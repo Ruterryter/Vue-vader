@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>Detta är en sida</h1>
+    <h1>Detta är en första sida</h1>
   </div>
 </template>
 
