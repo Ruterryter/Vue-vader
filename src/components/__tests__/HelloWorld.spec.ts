@@ -1,11 +1,14 @@
-import { describe, it, expect } from 'vitest'
-
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import HelloWorld from '../HelloWorld.vue'
+import { expect, describe, it } from '@jest/globals'
 
-describe('HelloWorld', () => {
-  it('renders properly', () => {
-    const wrapper = mount(HelloWorld, { props: { msg: 'Hello Vitest' } })
-    expect(wrapper.text()).toContain('Hello Vitest')
+describe('HelloWorld.vue', () => {
+  it('matches the snapshot', () => {
+    const msg = 'Hello, Jest and Vue!'
+    const wrapper = shallowMount(HelloWorld, {
+      props: { msg }
+    })
+
+    expect(wrapper.html()).toMatchSnapshot()
   })
 })
