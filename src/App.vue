@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
-import VaderNu from './components/VaderNu.vue'
+import DataFetchingVue from './components/DataFetching.vue'
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import VaderNu from './components/VaderNu.vue'
 
     <div class="wrapper">
       <HelloWorld msg="Vue Väder" />
-      <VaderNu msg="" />
+      <DataFetchingVue />
       <nav></nav>
     </div>
   </header>
