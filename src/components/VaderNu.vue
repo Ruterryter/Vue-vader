@@ -3,7 +3,6 @@ import { computed, defineProps } from 'vue'
 import { DailyWeather } from '../types'
 
 const props = defineProps<{
-  msg: string
   items?: DailyWeather
 }>()
 
@@ -20,8 +19,7 @@ const items = computed(() => props.items || defaultItems)
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>Skanör</h3>
+    <h1 class="green">Skanör</h1>
     <p>Skriv ut: datum, översätt väderkod, temp, max och min, soluppgång, solnedgång,</p>
     <div>
       <h2>Dagens väder</h2>

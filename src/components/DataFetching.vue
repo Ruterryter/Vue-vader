@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <VaderNu :items="weatherData" msg: string/>
@@ -14,7 +15,7 @@ export default defineComponent({
     VaderNu
   },
   setup() {
-    const message = ref('Weather Data')
+    // const message = ref('Weather Data')
     const weatherData = ref<DailyWeather | null>(null)
 
     onMounted(() => {
@@ -32,7 +33,6 @@ export default defineComponent({
     })
 
     return {
-      message,
       weatherData
     }
   }
