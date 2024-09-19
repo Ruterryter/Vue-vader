@@ -1,13 +1,42 @@
 <script setup lang="ts">
-defineProps<{
+import { computed, defineProps } from 'vue'
+import { DailyWeather } from '../types'
+
+const props = defineProps<{
   msg: string
+  items?: DailyWeather
 }>()
+
+const defaultItems: DailyWeather = {
+  temperature_2m_max: [],
+  temperature_2m_min: [],
+  sunrise: [],
+  sunset: [],
+  weather_code: []
+}
+
+const items = computed(() => props.items || defaultItems)
 </script>
 
 <template>
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
-    <h3>Fint väder</h3>
+    <h3>Skanör</h3>
+    <p>Skriv ut: datum, översätt väderkod, temp, max och min, soluppgång, solnedgång,</p>
+    <div>
+      <h2>Dagens väder</h2>
+      <ul v-if="items && items.temperature_2m_max.length">
+        <li v-for="(item, index) in items.temperature_2m_max" :key="index">
+          <p>Max Temperature: {{ item }}°C</p>
+          <p>Min Temperature: {{ items.temperature_2m_min[index] }}°C</p>
+          <p>Sunrise: {{ items.sunrise[index] }}</p>
+          <p>Sunset: {{ items.sunset[index] }}</p>
+          <p>Weather Code: {{ items.weather_code[index] }}</p>
+        </li>
+      </ul>
+      <p v-else>No data available</p>
+    </div>
+
     <template>
       <div></div>
     </template>

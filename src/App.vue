@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
-import DataFetchingVue from './components/DataFetching.vue'
+import VaderNu from './components/VaderNu.vue'
+import { DailyWeather } from './types'
+const message = ref('Weather Data')
+const weatherData = ref<DailyWeather | null>(null)
+import DataFetching from './components/DataFetching.vue'
 </script>
 
 <template>
@@ -8,8 +13,9 @@ import DataFetchingVue from './components/DataFetching.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="Vue Väder" />
-      <DataFetchingVue />
+      <DataFetching />
+      <VaderNu :msg="message" :items="weatherData" />
+
       <nav></nav>
     </div>
   </header>
