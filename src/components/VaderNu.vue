@@ -1,26 +1,23 @@
 <script setup lang="ts">
-import { computed, defineProps } from 'vue'
-import { DailyWeather } from '../types'
+import { ref, onMounted } from 'vue'
+import { WeatherService } from '../services/fetchWheater'
+import { DailyWeather } from '@/types'
 
-const props = defineProps<{
-  items?: DailyWeather
-}>()
+const items = ref<DailyWeather | null>(null)
 
-const defaultItems: DailyWeather = {
-  temperature_2m_max: [],
-  temperature_2m_min: [],
-  sunrise: [],
-  sunset: [],
-  weather_code: []
-}
+onMounted(async () => {
+  items.value = await WeatherService.fetchWeatherData()
+})
 
-const items = computed(() => props.items || defaultItems)
+defineExpose({
+  items
+})
 </script>
 
 <template>
   <div class="greetings">
     <h1 class="green">Skanör</h1>
-    <p>Skriv ut: datum, översätt väderkod, temp, max och min, soluppgång, solnedgång,</p>
+    <p>Det var fint väder</p>
     <div>
       <h2>Dagens väder</h2>
       <ul v-if="items && items.temperature_2m_max.length">

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import DataFetching from './components/DataFetching.vue'
+import VaderNu from './components/VaderNu.vue'
 </script>
 
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
     <div class="wrapper">
-      <DataFetching />
+      <VaderNu />
       <nav></nav>
     </div>
   </header>
