@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { WeatherService } from '../services/fetchWheater'
 import { DailyWeather } from '@/types'
+import { getWeatherConditionString } from '../services/wheatercodeTranslator'
 
 const items = ref<DailyWeather | null>(null)
 
@@ -12,6 +13,10 @@ onMounted(async () => {
 defineExpose({
   items
 })
+
+const translateWeatherCondition = (weatherCode: number): string => {
+  return getWeatherConditionString(weatherCode)
+}
 </script>
 
 <template>
@@ -27,6 +32,7 @@ defineExpose({
           <p>Sunrise: {{ items.sunrise[index] }}</p>
           <p>Sunset: {{ items.sunset[index] }}</p>
           <p>Weather Code: {{ items.weather_code[index] }}</p>
+          <p>Weather Condition: {{ translateWeatherCondition(items.weather_code[index]) }}</p>
         </li>
       </ul>
       <p v-else>No data available</p>
