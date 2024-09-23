@@ -35,11 +35,11 @@ const translateWeatherCondition = (weatherCode: number): string => {
 </script>
 
 <template>
-  <div class="greetings">
-    <div>
+  <div>
+    <div class="today">
       <ul v-if="dailyWheather && dailyWheather.temperature_2m_max.length">
         <li v-for="(item, index) in dailyWheather.temperature_2m_max" :key="index">
-          <h1 class="green">Skanör</h1>
+          <h1>Skanör</h1>
           <h3>{{ dailyWheather.time[0] }}</h3>
           <p v-if="averageTemp !== null">Average Temperature: {{ averageTemp }}°C</p>
           <p>Max Temperature: {{ item }}°C</p>
@@ -53,38 +53,7 @@ const translateWeatherCondition = (weatherCode: number): string => {
       </ul>
       <p v-else>No data available</p>
     </div>
-
-    <template>
-      <div></div>
-    </template>
   </div>
 </template>
 
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-ul {
-  list-style-type: none;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
-  }
-}
-</style>
+<style lang="sass"></style>

@@ -48,9 +48,8 @@ export function getAverageTemperature(maxTemps: number[], minTemps: number[]): n
     throw new Error('Temperature arrays cannot be empty')
   }
 
-  const maxTemp = maxTemps[0] // Get first element of max temperature array
-  const minTemp = minTemps[0] // Get first element of min temperature array
+  const maxTemp = maxTemps[0]
+  const minTemp = minTemps[0]
 
-  // Calculate and return the average
   return (maxTemp + minTemp) / 2
 }
