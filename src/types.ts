@@ -4,6 +4,7 @@ export interface DailyWeather {
   sunrise: string[]
   sunset: string[]
   weather_code: number[]
+  time: number[]
 }
 
 export interface WeatherApiResponse {

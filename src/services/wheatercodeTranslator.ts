@@ -23,3 +23,8 @@ export function getWeatherConditionString(weatherCode: number): string {
   }
   return 'No weather conditons avalible'
 }
+
+export function formatTimeFromApi(apiDateTime: string): string {
+  // Split the string by 'T' and return the second part (time)
+  return apiDateTime.split('T')[1]
+}

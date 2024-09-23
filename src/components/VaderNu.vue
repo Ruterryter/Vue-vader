@@ -2,16 +2,18 @@
 import { ref, onMounted } from 'vue'
 import { WeatherService } from '../services/fetchWheater'
 import { DailyWeather } from '@/types'
-import { getWeatherConditionString } from '../services/wheatercodeTranslator'
+import { getWeatherConditionString, formatTimeFromApi } from '../services/wheatercodeTranslator'
 
-const items = ref<DailyWeather | null>(null)
+const dailyWheather = ref<DailyWeather | null>(null)
+
+const formattedTime = formatTimeFromApi
 
 onMounted(async () => {
-  items.value = await WeatherService.fetchWeatherData()
+  dailyWheather.value = await WeatherService.fetchWeatherData()
 })
 
 defineExpose({
-  items
+  dailyWheather
 })
 
 const translateWeatherCondition = (weatherCode: number): string => {
@@ -24,14 +26,16 @@ const translateWeatherCondition = (weatherCode: number): string => {
     <h1 class="green">Skanör</h1>
     <div>
       <h2>Todays Weather</h2>
-      <ul v-if="items && items.temperature_2m_max.length">
-        <li v-for="(item, index) in items.temperature_2m_max" :key="index">
+      <ul v-if="dailyWheather && dailyWheather.temperature_2m_max.length">
+        <li v-for="(item, index) in dailyWheather.temperature_2m_max" :key="index">
+          <h3>{{ dailyWheather.time[0] }}</h3>
           <p>Max Temperature: {{ item }}°C</p>
-          <p>Min Temperature: {{ items.temperature_2m_min[index] }}°C</p>
-          <p>Sunrise: {{ items.sunrise[index] }}</p>
-          <p>Sunset: {{ items.sunset[index] }}</p>
-
-          <p>Weather Condition: {{ translateWeatherCondition(items.weather_code[index]) }}</p>
+          <p>Min Temperature: {{ dailyWheather.temperature_2m_min[index] }}°C</p>
+          <p>Sunrise: {{ formattedTime(dailyWheather.sunrise[index]) }}</p>
+          <p>Sunset: {{ formattedTime(dailyWheather.sunset[index]) }}</p>
+          <p>
+            Weather Condition: {{ translateWeatherCondition(dailyWheather.weather_code[index]) }}
+          </p>
         </li>
       </ul>
       <p v-else>No data available</p>
