@@ -22,16 +22,15 @@ const translateWeatherCondition = (weatherCode: number): string => {
 <template>
   <div class="greetings">
     <h1 class="green">Skanör</h1>
-    <p>Det var fint väder</p>
     <div>
-      <h2>Dagens väder</h2>
+      <h2>Todays Weather</h2>
       <ul v-if="items && items.temperature_2m_max.length">
         <li v-for="(item, index) in items.temperature_2m_max" :key="index">
           <p>Max Temperature: {{ item }}°C</p>
           <p>Min Temperature: {{ items.temperature_2m_min[index] }}°C</p>
           <p>Sunrise: {{ items.sunrise[index] }}</p>
           <p>Sunset: {{ items.sunset[index] }}</p>
-          <p>Weather Code: {{ items.weather_code[index] }}</p>
+
           <p>Weather Condition: {{ translateWeatherCondition(items.weather_code[index]) }}</p>
         </li>
       </ul>
