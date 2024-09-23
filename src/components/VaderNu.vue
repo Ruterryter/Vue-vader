@@ -2,14 +2,27 @@
 import { ref, onMounted } from 'vue'
 import { WeatherService } from '../services/fetchWheater'
 import { DailyWeather } from '@/types'
-import { getWeatherConditionString, formatTimeFromApi } from '../services/wheatercodeTranslator'
+import {
+  getWeatherConditionString,
+  formatTimeFromApi,
+  getAverageTemperature
+} from '../services/wheatercodeTranslator'
 
 const dailyWheather = ref<DailyWeather | null>(null)
-
 const formattedTime = formatTimeFromApi
+const maxTemp = ref<number[]>([])
+const minTemp = ref<number[]>([])
+const averageTemp = ref<number | null>(null)
 
 onMounted(async () => {
   dailyWheather.value = await WeatherService.fetchWeatherData()
+
+  if (dailyWheather.value) {
+    maxTemp.value = dailyWheather.value.temperature_2m_max
+    minTemp.value = dailyWheather.value.temperature_2m_min
+
+    averageTemp.value = getAverageTemperature(maxTemp.value, minTemp.value)
+  }
 })
 
 defineExpose({
@@ -23,12 +36,12 @@ const translateWeatherCondition = (weatherCode: number): string => {
 
 <template>
   <div class="greetings">
-    <h1 class="green">Skanör</h1>
     <div>
-      <h2>Todays Weather</h2>
       <ul v-if="dailyWheather && dailyWheather.temperature_2m_max.length">
         <li v-for="(item, index) in dailyWheather.temperature_2m_max" :key="index">
+          <h1 class="green">Skanör</h1>
           <h3>{{ dailyWheather.time[0] }}</h3>
+          <p v-if="averageTemp !== null">Average Temperature: {{ averageTemp }}°C</p>
           <p>Max Temperature: {{ item }}°C</p>
           <p>Min Temperature: {{ dailyWheather.temperature_2m_min[index] }}°C</p>
           <p>Sunrise: {{ formattedTime(dailyWheather.sunrise[index]) }}</p>
@@ -62,6 +75,10 @@ h3 {
 .greetings h1,
 .greetings h3 {
   text-align: center;
+}
+
+ul {
+  list-style-type: none;
 }
 
 @media (min-width: 1024px) {
