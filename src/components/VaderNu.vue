@@ -7,6 +7,9 @@ import {
   formatTimeFromApi,
   getAverageTemperature
 } from '../services/weathercodeTranslator'
+import { Icon } from '@vicons/utils'
+import Sunrise from '@vicons/tabler/Sunrise'
+import Sunset from '@vicons/tabler/Sunset'
 
 const dailyWheather = ref<DailyWeather | null>(null)
 const formattedTime = formatTimeFromApi
@@ -43,8 +46,17 @@ const translateWeatherCondition = (weatherCode: number): string => {
           <p v-if="averageTemp !== null">Average Temperature: {{ averageTemp }}°C</p>
           <p>Max Temperature: {{ item }}°C</p>
           <p>Min Temperature: {{ dailyWheather.temperature_2m_min[index] }}°C</p>
-          <p>Sunrise: {{ formattedTime(dailyWheather.sunrise[index]) }}</p>
-          <p>Sunset: {{ formattedTime(dailyWheather.sunset[index]) }}</p>
+          <p>
+            Sunrise: {{ formattedTime(dailyWheather.sunrise[index]) }}
+            <Icon class="icon">
+              <Sunrise />
+            </Icon>
+          </p>
+          <p>
+            Sunset:
+            {{ formattedTime(dailyWheather.sunset[index]) }}
+            <Icon class="icon"> <Sunset /> </Icon>
+          </p>
           <p>
             Weather Condition: {{ translateWeatherCondition(dailyWheather.weather_code[index]) }}
           </p>

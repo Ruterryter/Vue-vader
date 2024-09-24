@@ -15,8 +15,9 @@ import VaderNu from './VaderNu.vue'
         footer: 'soft'
       }"
     >
-      <template #header-extra>Skanör</template>
-
+      <template #header-extra>
+        <div class="headerExtraStyle">Skanör</div>
+      </template>
       <template #action> <VaderNu /></template>
     </n-card>
   </n-flex>
@@ -24,7 +25,19 @@ import VaderNu from './VaderNu.vue'
 
 <style scoped>
 .n-card {
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 50px;
   max-width: 500px;
   background-color: rgba(32, 128, 240, 0.6);
+  box-shadow: 10px 10px 5px grey;
+}
+
+.n-card-header_main {
+  font-weight: bold;
+}
+
+.headerExtraStyle {
+  font-style: italic;
+  font-weight: 700;
 }
 </style>

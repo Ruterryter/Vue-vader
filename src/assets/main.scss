@@ -21,12 +21,15 @@ ul {
 }
 
 h4 {
-  font-size: medium;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 500;
 }
 
 p {
-  font-size: small;
   font-family: 'Courier New', Courier, monospace;
   font-weight: 700;
+}
+
+.icon {
+  font-weight: bold;
 }

@@ -50,6 +50,7 @@ export function getAverageTemperature(maxTemps: number[], minTemps: number[]): n
 
   const maxTemp = maxTemps[0]
   const minTemp = minTemps[0]
+  const average = (maxTemp + minTemp) / 2
 
-  return (maxTemp + minTemp) / 2
+  return parseFloat(average.toFixed(1))
 }
