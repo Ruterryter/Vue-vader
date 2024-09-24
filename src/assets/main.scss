@@ -7,3 +7,26 @@
 ul {
   list-style-type: none;
 }
+
+.cardWrapper {
+  display: flex;
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.card {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+}
+
+h4 {
+  font-size: medium;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+p {
+  font-size: small;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+}

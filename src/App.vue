@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import VaderNu from './components/VaderNu.vue'
+import VaderKort from './components/VaderKort.vue'
 </script>
 
 <template>
-  <div>
-    <VaderNu />
+  <div></div>
+  <div class="cardWrapper">
+    <div class="card"><VaderKort /></div>
   </div>
 </template>

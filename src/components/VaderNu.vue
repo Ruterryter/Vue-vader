@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { WeatherService } from '../services/fetchWheater'
+import { WeatherService } from '../services/fetchweather'
 import { DailyWeather } from '@/types'
 import {
   getWeatherConditionString,
   formatTimeFromApi,
   getAverageTemperature
-} from '../services/wheatercodeTranslator'
+} from '../services/weathercodeTranslator'
 
 const dailyWheather = ref<DailyWeather | null>(null)
 const formattedTime = formatTimeFromApi
@@ -39,8 +39,7 @@ const translateWeatherCondition = (weatherCode: number): string => {
     <div class="today">
       <ul v-if="dailyWheather && dailyWheather.temperature_2m_max.length">
         <li v-for="(item, index) in dailyWheather.temperature_2m_max" :key="index">
-          <h1>Skanör</h1>
-          <h3>{{ dailyWheather.time[0] }}</h3>
+          <h4>{{ dailyWheather.time[0] }}</h4>
           <p v-if="averageTemp !== null">Average Temperature: {{ averageTemp }}°C</p>
           <p>Max Temperature: {{ item }}°C</p>
           <p>Min Temperature: {{ dailyWheather.temperature_2m_min[index] }}°C</p>
