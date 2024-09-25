@@ -12,6 +12,7 @@ export class WeatherService {
       }
 
       const data = await response.json()
+      console.log(data)
 
       return data.daily as DailyWeather
     } catch (error) {
