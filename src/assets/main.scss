@@ -1,0 +1,35 @@
+.today {
+  h1 {
+    color: #0e5532;
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+
+.cardWrapper {
+  display: flex;
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.card {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+}
+
+h4 {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 500;
+}
+
+p {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+}
+
+.icon {
+  font-weight: bold;
+}

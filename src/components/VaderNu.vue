@@ -1,15 +1,31 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { WeatherService } from '../services/fetchWheater'
+import { WeatherService } from '../services/fetchweather'
 import { DailyWeather } from '@/types'
-import { getWeatherConditionString, formatTimeFromApi } from '../services/wheatercodeTranslator'
+import {
+  getWeatherConditionString,
+  formatTimeFromApi,
+  getAverageTemperature
+} from '../services/weathercodeTranslator'
+import { Icon } from '@vicons/utils'
+import Sunrise from '@vicons/tabler/Sunrise'
+import Sunset from '@vicons/tabler/Sunset'
 
 const dailyWheather = ref<DailyWeather | null>(null)
-
 const formattedTime = formatTimeFromApi
+const maxTemp = ref<number[]>([])
+const minTemp = ref<number[]>([])
+const averageTemp = ref<number | null>(null)
 
 onMounted(async () => {
   dailyWheather.value = await WeatherService.fetchWeatherData()
+
+  if (dailyWheather.value) {
+    maxTemp.value = dailyWheather.value.temperature_2m_max
+    minTemp.value = dailyWheather.value.temperature_2m_min
+
+    averageTemp.value = getAverageTemperature(maxTemp.value, minTemp.value)
+  }
 })
 
 defineExpose({
@@ -22,17 +38,25 @@ const translateWeatherCondition = (weatherCode: number): string => {
 </script>
 
 <template>
-  <div class="greetings">
-    <h1 class="green">Skanör</h1>
-    <div>
-      <h2>Todays Weather</h2>
+  <div>
+    <div class="today">
       <ul v-if="dailyWheather && dailyWheather.temperature_2m_max.length">
         <li v-for="(item, index) in dailyWheather.temperature_2m_max" :key="index">
-          <h3>{{ dailyWheather.time[0] }}</h3>
+          <h4>{{ dailyWheather.time[0] }}</h4>
+          <p v-if="averageTemp !== null">Average Temperature: {{ averageTemp }}°C</p>
           <p>Max Temperature: {{ item }}°C</p>
           <p>Min Temperature: {{ dailyWheather.temperature_2m_min[index] }}°C</p>
-          <p>Sunrise: {{ formattedTime(dailyWheather.sunrise[index]) }}</p>
-          <p>Sunset: {{ formattedTime(dailyWheather.sunset[index]) }}</p>
+          <p>
+            Sunrise: {{ formattedTime(dailyWheather.sunrise[index]) }}
+            <Icon class="icon">
+              <Sunrise />
+            </Icon>
+          </p>
+          <p>
+            Sunset:
+            {{ formattedTime(dailyWheather.sunset[index]) }}
+            <Icon class="icon"> <Sunset /> </Icon>
+          </p>
           <p>
             Weather Condition: {{ translateWeatherCondition(dailyWheather.weather_code[index]) }}
           </p>
@@ -40,34 +64,7 @@ const translateWeatherCondition = (weatherCode: number): string => {
       </ul>
       <p v-else>No data available</p>
     </div>
-
-    <template>
-      <div></div>
-    </template>
   </div>
 </template>
 
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
-  }
-}
-</style>
+<style lang="sass"></style>
